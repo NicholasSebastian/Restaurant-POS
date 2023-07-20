@@ -4,7 +4,7 @@ import { useState, useEffect, type FC } from "react";
 // An item is comprised of a name, price, group, and an optional image.
 // The images are stored locally rather than in google-sheets like the other fields.
 
-const Form: FC = () => {
+const Form: FC<IFormProps> = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [group, setGroup] = useState("");
@@ -27,10 +27,12 @@ const Menu: FC = () => {
 
   return (
     <div className="">
-      <h1>Menu Makanan dan Minuman</h1>
+      <h1 className="">
+        Menu Makanan dan Minuman
+      </h1>
       {/* TODO */}
       {modal && (
-        <div>
+        <div className="">
           <Form />
         </div>
       )}
@@ -39,3 +41,7 @@ const Menu: FC = () => {
 }
 
 export default Menu;
+
+interface IFormProps {
+  // TODO
+}
