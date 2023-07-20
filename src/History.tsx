@@ -1,5 +1,7 @@
 import { useState, type FC } from "react";
 
+// TODO: Display the list of orders made in the past.
+
 const History: FC = () => {
   const [] = useState();
   return (
