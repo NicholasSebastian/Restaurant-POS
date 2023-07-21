@@ -1,12 +1,13 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { AiOutlinePlus } from "react-icons/ai";
-import { useOrders } from "../pages/Menu";
+import useOrders from "../pages/Menu/useOrders";
 import type { FC, PropsWithChildren } from "react";
 
 const styles = "text-xs text-gray-700 px-3 py-2 rounded-lg transition-colors";
 
 const Layout: FC<PropsWithChildren> = props => {
   const { setOrders } = useOrders();
+  const { pathname } = useLocation();
   return (
     <div className="bg-gray-100 h-screen grid grid-cols-[240px_1fr]">
       <nav className="bg-white flex flex-col p-4">
@@ -16,7 +17,8 @@ const Layout: FC<PropsWithChildren> = props => {
         </div>
         <button
           onClick={() => setOrders(orders => [...orders, []])}
-          className="flex justify-center items-center bg-blue-600 text-white my-4 py-2 rounded-lg">
+          className="flex justify-center items-center bg-blue-600 text-white my-4 py-2 rounded-lg"
+          style={{ visibility: (pathname === "/") ? "visible" : "hidden" }}>
           <AiOutlinePlus />
           <span className="text-xs ml-1">Order Baru</span>
         </button>
