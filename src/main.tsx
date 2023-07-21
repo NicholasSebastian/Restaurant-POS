@@ -3,20 +3,22 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider, createMemoryRouter, type RouteObject } from "react-router-dom";
 import "./styles.css";
 
-import Layout from "./components/layout";
-import App from "./App";
-import Dashboard from "./Dashboard";
-import Menu from "./Menu";
-import History from "./History";
-import Report from "./Report";
+import Layout from "./components/Layout";
+import { OrderProvider } from "./pages/Menu/useOrders";
+import Menu from "./pages/Menu";
+import Dashboard from "./pages/Dashboard";
+import Report from "./pages/Accounting";
 
 const routes: Array<RouteObject> = [
-  { path: "/", element: <App /> },
+  { path: "/", element: <Menu /> },
   { path: "/dashboard", element: <Dashboard /> },
-  { path: "/menu", element: <Menu /> },
-  { path: "/history", element: <History /> },
   { path: "/report", element: <Report /> }
 ];
+
+// Wrap each route with the Layout.
+for (const route of routes) {
+  route.element = <Layout>{route.element}</Layout>
+}
 
 const target = document.getElementById("root") as HTMLElement;
 const root = ReactDOM.createRoot(target);
@@ -24,8 +26,8 @@ const router = createMemoryRouter(routes, { initialEntries: ["/"] });
 
 root.render(
   <React.StrictMode>
-    <Layout>
+    <OrderProvider>
       <RouterProvider router={router} />
-    </Layout>
+    </OrderProvider>
   </React.StrictMode>
 );
