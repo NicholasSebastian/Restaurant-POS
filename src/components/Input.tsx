@@ -6,13 +6,14 @@ const Input: FC<IInputProps> = props => {
     <Fragment>
       <label 
         htmlFor={id} 
-        className="">
+        className="text-gray-700 text-xs mb-0.5">
         {label}
       </label>
       <input 
         id={id} 
         type={isNumber ? "number" : "text"}
-        className="" 
+        size={30}
+        className="border border-gray-200 rounded-lg px-2 py-1 text-sm focus:outline-none mb-4" 
         value={value} 
         onChange={e => setValue ? setValue(e.target.value) : undefined}
         disabled={!setValue} />

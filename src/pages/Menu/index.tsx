@@ -1,11 +1,18 @@
 import { useState, useEffect } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
+import getDatabase from "../../database";
 import useOrders from "./useOrders";
 import Form from "./Form";
 import CategoryButtons, { CATEGORIES } from "./CategoryButtons";
 import type { FC } from "react";
 
 // UI: https://dribbble.com/shots/21741454-Resto-Point-Of-Sales-system-dashboard
+
+function handleAddToMenu(name: string, price: number, category: string) {
+  const database = getDatabase();
+  const menu = database.sheetsByTitle["Menu"];
+  menu.addRow([name, price, category]);
+}
 
 const Menu: FC = () => {
   const [category, setCategory] = useState(CATEGORIES[0]);
@@ -55,16 +62,22 @@ const Menu: FC = () => {
           <CategoryButtons 
             active={category}
             onChange={setCategory} />
+          {/* TODO */}
+          <div className="grid grid-cols-4 mt-3">
+            <button
+              className="border border-gray-300 border-dashed rounded-md text-sm font-extralight h-24"
+              onClick={() => setModal(true)}>
+              Tambah ke Menu
+            </button>
+          </div>
         </section>
-        {/* TODO */}
         {modal && (
-          <section className="">
+          <section 
+            className="fixed inset-0 bg-black/50 flex justify-center items-center"
+            onClick={() => setModal(false)}>
             <Form 
               group={category} 
-              onSubmit={(name, price) => {
-                // TODO
-                console.log(name, price, category);
-              }} />
+              onSubmit={(name, price) => handleAddToMenu(name, price, category)} />
           </section>
         )}
       </div>

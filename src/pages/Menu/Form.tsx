@@ -6,10 +6,14 @@ const Form: FC<IFormProps> = props => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   return (
-    <form onSubmit={e => {
-      e.preventDefault();
-      onSubmit(name, price);
-    }}>
+    <form 
+      className="bg-white rounded-lg flex flex-col py-5 px-6 shadow"
+      onClick={e => e.stopPropagation()}
+      onSubmit={e => {
+        e.preventDefault();
+        onSubmit(name, price);
+      }}>
+      <h1 className="text-center font-semibold mb-2">Tambah ke Menu</h1>
       <Input 
         id="name" 
         label="Nama" 
@@ -27,8 +31,8 @@ const Form: FC<IFormProps> = props => {
         value={group} />
       <button 
         type="submit"
-        className="">
-        Tambah
+        className="bg-blue-500 text-white text-sm rounded-lg py-2">
+        Simpan
       </button>
     </form>
   );
